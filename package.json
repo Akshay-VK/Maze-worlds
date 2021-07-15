@@ -4,7 +4,8 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --coverage",
+    "build":"webpack"
   },
   "author": "Karuvathil Akshay Vijaykumar",
   "license": "MIT",

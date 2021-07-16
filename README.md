@@ -15,4 +15,4 @@
 #### >Characters: Updated everytime
 #### >Lights: Updated every time
 
-#### You might ask, why not use WebGL. Truth is, it is VERY diffucult(for me).I'm learning it though.
+#### I am using WebGL.

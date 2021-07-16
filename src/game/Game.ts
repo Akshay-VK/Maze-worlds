@@ -1,16 +1,19 @@
 import { Color } from "../images/Color";
 import { float2 } from "../math/float2";
+import { ColorRenderer } from "../renderer/colorRenderer";
 
 export class Game{
-    private backgroundContext: CanvasRenderingContext2D;
-    private characterContext: CanvasRenderingContext2D;
-    private lightsContext: CanvasRenderingContext2D;
+    private backgroundContext: WebGLRenderingContext;
+    private characterContext: WebGLRenderingContext;
+    private lightsContext: WebGLRenderingContext;
 
-    clearColor: Color;
+    private clearColor: Color;
 
-    dimensions: float2;
+    private dimensions: float2;
 
-    constructor(bgctx: CanvasRenderingContext2D,charctx: CanvasRenderingContext2D,lightctx: CanvasRenderingContext2D){
+    private colorRenderer: ColorRenderer;
+
+    constructor(bgctx: WebGLRenderingContext,charctx: WebGLRenderingContext,lightctx: WebGLRenderingContext){
         if(!(bgctx.canvas.width==charctx.canvas.width && bgctx.canvas.height==charctx.canvas.height)){
             throw new Error('Canvas size of contexts provided are not same.');
         }else{
@@ -26,6 +29,9 @@ export class Game{
         this.clearColor = new Color(0,0,0,1);
 
         this.dimensions = new float2(bgctx.canvas.width,bgctx.canvas.height);
+
+        this.colorRenderer = new ColorRenderer(this.lightsContext,"vs-color","fs-color");
+
     }
 
     public loop(): void{
@@ -36,21 +42,15 @@ export class Game{
         requestAnimationFrame(this.loop);
     }
 
-    private update(): void{
-
+    public update(): void{
+        var a =1;
+        a++;
     }
-    private render(bgctx: CanvasRenderingContext2D,charctx: CanvasRenderingContext2D, lctx: CanvasRenderingContext2D): void{
+    public render(bgctx: WebGLRenderingContext,charctx: WebGLRenderingContext, lctx: WebGLRenderingContext): void{
         //TODO: Do clearing ONlY if required.
-        bgctx.fillStyle=`rgba(${this.clearColor.r},${this.clearColor.g},${this.clearColor.b},${this.clearColor.a})`;
-        bgctx.fillRect(0,0,this.dimensions.x,this.dimensions.y);
-
-        charctx.fillStyle=`rgba(${this.clearColor.r},${this.clearColor.g},${this.clearColor.b},${this.clearColor.a})`;
-        charctx.fillRect(0,0,this.dimensions.x,this.dimensions.y);
-
-        lctx.fillStyle=`rgba(${this.clearColor.r},${this.clearColor.g},${this.clearColor.b},${this.clearColor.a})`;
-        lctx.fillRect(0,0,this.dimensions.x,this.dimensions.y);
-
-        
+        var normBgCol: Color = this.clearColor.normalized;
+        bgctx.clearColor(normBgCol.r,normBgCol.g,normBgCol.b,normBgCol.a);
+        bgctx.clear(bgctx.COLOR_BUFFER_BIT);
 
     }
 }

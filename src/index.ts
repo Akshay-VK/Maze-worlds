@@ -1,13 +1,13 @@
 import { Game } from "./game/Game";
 
 var backgroundCanvas: HTMLCanvasElement = document.querySelector('#bg-canvas');
-var bgctx : CanvasRenderingContext2D = backgroundCanvas.getContext('2d');
+var bgctx : WebGLRenderingContext = backgroundCanvas.getContext('webgl');
 
 var characterCanvas: HTMLCanvasElement = document.querySelector('#char-canvas');
-var charctx : CanvasRenderingContext2D = characterCanvas.getContext('2d');
+var charctx : WebGLRenderingContext = characterCanvas.getContext('webgl');
 
 var lightsCanvas : HTMLCanvasElement = document.querySelector('#lights-canvas');
-var lightctx : CanvasRenderingContext2D = lightsCanvas.getContext('2d');
+var lightctx : WebGLRenderingContext = lightsCanvas.getContext('webgl');
 
 var game = new Game(bgctx,charctx,lightctx);
 

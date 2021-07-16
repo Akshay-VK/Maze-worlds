@@ -9,4 +9,7 @@ export class Color{
         this.b=b;
         this.a=a;
     }
+    public get normalized(): Color{
+        return new Color(this.r/255,this.g/255,this.b/255,this.a/255);
+    }
 }

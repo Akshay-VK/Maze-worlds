@@ -26,27 +26,19 @@ export class Game{
         this.characterContext=charctx;
         this.lightsContext=lightctx;
 
-        this.clearColor = new Color(0,0,0,1);
+        this.clearColor = new Color(0,0,0,255);
 
         this.dimensions = new float2(bgctx.canvas.width,bgctx.canvas.height);
 
         this.colorRenderer = new ColorRenderer(this.lightsContext,"vs-color","fs-color");
 
+        console.log(this,this.render);
     }
-
-    public loop(): void{
-        
-        this.update();
-        this.render(this.backgroundContext,this.characterContext,this.lightsContext);
-
-        requestAnimationFrame(this.loop);
-    }
-
     public update(): void{
         var a =1;
         a++;
     }
-    public render(bgctx: WebGLRenderingContext,charctx: WebGLRenderingContext, lctx: WebGLRenderingContext): void{
+    public render(bgctx: WebGLRenderingContext=this.backgroundContext,charctx: WebGLRenderingContext=this.characterContext, lctx: WebGLRenderingContext=this.lightsContext): void{
         //TODO: Do clearing ONlY if required.
         var normBgCol: Color = this.clearColor.normalized;
         bgctx.clearColor(normBgCol.r,normBgCol.g,normBgCol.b,normBgCol.a);

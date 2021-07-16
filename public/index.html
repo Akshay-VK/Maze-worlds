@@ -28,15 +28,19 @@
 </head>
 <body bgcolor= 'grey'>
 
+    <canvas id = 'bg-canvas' width="600px" height="400px"></canvas>
+    <canvas id='char-canvas' width="600px" height="400px"></canvas>
+    <canvas id='lights-canvas' width="600px" height="400px"></canvas>
+    
     <script id='vs-color' type='notjs'>
         attribute vec2 a_pos;
 
         uniform vec2 u_res;
         void main(){
             vec2 coord= a_pos/u_res;
-            coord *=2;
-            coord -= 1;
-            gl_Position=coord;
+            coord *=2.0;
+            coord -= 1.0;
+            gl_Position=vec4(coord*vec2(1,-1),0,1);
         }
     </script>
     <script id='fs-color' type='notjs'>
@@ -48,11 +52,6 @@
         }
     </script>
     
-
-    <canvas id = 'bg-canvas' width="600px" height="400px"></canvas>
-    <canvas id='char-canvas' width="600px" height="400px"></canvas>
-    <canvas id='lights-canvas' width="600px" height="400px"></canvas>
-
     <script src = 'sketch.js' defer></script>
 </body>
 </html>

@@ -12,10 +12,9 @@ export class WebglUtil{
 
         if(gl.getShaderParameter(shader, gl.COMPILE_STATUS)){
             return shader;
-        }else{
-            console.log(gl.getShaderInfoLog(shader))
-            gl.deleteShader(shader);
         }
+        console.log(gl.getShaderInfoLog(shader))
+        gl.deleteShader(shader);
     }
 
     public createProgram(gl: WebGLRenderingContext, vs: WebGLShader, fs: WebGLShader): WebGLProgram{
@@ -28,9 +27,8 @@ export class WebglUtil{
 
         if(gl.getProgramParameter(program, gl.LINK_STATUS)){
             return program;
-        }else{
-            console.log(gl.getProgramInfoLog(program));
-            gl.deleteProgram(program);
         }
+        console.log(gl.getProgramInfoLog(program));
+        gl.deleteProgram(program);
     }
 }

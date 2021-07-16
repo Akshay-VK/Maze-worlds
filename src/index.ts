@@ -11,4 +11,10 @@ var lightctx : WebGLRenderingContext = lightsCanvas.getContext('webgl');
 
 var game = new Game(bgctx,charctx,lightctx);
 
-requestAnimationFrame(game.loop);
+function loop(){
+    game.update();
+    game.render();
+
+    requestAnimationFrame(loop);
+}
+requestAnimationFrame(loop);

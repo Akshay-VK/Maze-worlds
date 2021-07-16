@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "test": "jest --coverage",
-    "build":"webpack"
+    "build":"webpack",
+    "start":"node server.js" 
   },
   "author": "Karuvathil Akshay Vijaykumar",
   "license": "MIT",

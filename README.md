@@ -25,6 +25,6 @@ So, this time, im going to use multiple canvases and WebGL! They will be:
 - **GLSL**: The vertex and fragment shader will be in script tags
 - **HTML**: no need to speak
 
-### Fututre plans
+### Future plans
 
 My plan is to make this game into a desktop game with Electron and publich it on Github and other places.

@@ -13,6 +13,8 @@ export class Game{
 
     private colorRenderer: ColorRenderer;
 
+    private x: number;
+
     constructor(bgctx: WebGLRenderingContext,charctx: WebGLRenderingContext,lightctx: WebGLRenderingContext){
         if(!(bgctx.canvas.width==charctx.canvas.width && bgctx.canvas.height==charctx.canvas.height)){
             throw new Error('Canvas size of contexts provided are not same.');
@@ -26,23 +28,27 @@ export class Game{
         this.characterContext=charctx;
         this.lightsContext=lightctx;
 
-        this.clearColor = new Color(0,0,0,255);
+        this.clearColor = new Color(255, 255, 255,255);
 
         this.dimensions = new float2(bgctx.canvas.width,bgctx.canvas.height);
 
         this.colorRenderer = new ColorRenderer(this.lightsContext,"vs-color","fs-color");
 
+        //debug
         console.log(this,this.render);
+        this.x=0;
     }
     public update(): void{
-        var a =1;
-        a++;
+        this.x=(this.x+1)%600;
     }
     public render(bgctx: WebGLRenderingContext=this.backgroundContext,charctx: WebGLRenderingContext=this.characterContext, lctx: WebGLRenderingContext=this.lightsContext): void{
         //TODO: Do clearing ONlY if required.
-        var normBgCol: Color = this.clearColor.normalized;
-        bgctx.clearColor(normBgCol.r,normBgCol.g,normBgCol.b,normBgCol.a);
-        bgctx.clear(bgctx.COLOR_BUFFER_BIT);
 
+        var normBgCol: Color = this.clearColor.normalized;
+        // bgctx.clearColor(normBgCol.r,normBgCol.g,normBgCol.b,normBgCol.a);
+        // bgctx.clear(bgctx.COLOR_BUFFER_BIT);
+
+        this.colorRenderer.clear(this.clearColor);
+        this.colorRenderer.rect(this.x,30,100,50,new Color(255,0,0,255));
     }
 }

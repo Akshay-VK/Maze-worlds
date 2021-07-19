@@ -51,6 +51,39 @@
             gl_FragColor=u_color;
         }
     </script>
+    <script id='vs-image' type='notjs'>
+	    attribute vec2 a_pos;
+        attribute vec2 a_texcoord;
+
+        uniform vec2 u_res;
+
+	    varying vec2 v_texcoord;
+        void main(){
+            vec2 coord= a_pos/u_res;
+            coord *=2.0;
+            coord -= 1.0;
+
+            gl_Position=vec4(coord*vec2(1,-1),0,1);
+
+	        v_texcoord = a_texcoord;
+        }
+    </script>
+    <script id='fs-image' type='notjs'>
+	    precision mediump float;
+
+        uniform sampler2D u_img;
+	
+	    varying vec2 v_texcoord;
+
+	    void main(){
+	        gl_FragColor = texture2D(u_img, v_texcoord);
+	    }
+    </script>
+
+    <img src='./image.png' id='imagee' style="display:none;">
+
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <div id='debug'></div>
     
     <script src = 'sketch.js' defer></script>
 </body>

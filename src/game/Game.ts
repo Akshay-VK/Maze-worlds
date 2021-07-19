@@ -1,6 +1,8 @@
 import { Color } from "../images/Color";
 import { float2 } from "../math/float2";
 import { ColorRenderer } from "../renderer/colorRenderer";
+import { ImageRenderer } from "../renderer/imageRenderer";
+import { WebglUtil } from "../util/webgl";
 
 export class Game{
     private backgroundContext: WebGLRenderingContext;
@@ -12,6 +14,9 @@ export class Game{
     private dimensions: float2;
 
     private colorRenderer: ColorRenderer;
+    private imageRender: ImageRenderer;
+
+    private webglUtil: WebglUtil;
 
     private x: number;
 
@@ -33,6 +38,9 @@ export class Game{
         this.dimensions = new float2(bgctx.canvas.width,bgctx.canvas.height);
 
         this.colorRenderer = new ColorRenderer(this.lightsContext,"vs-color","fs-color");
+        this.imageRender = new ImageRenderer(this.backgroundContext,"vs-image","fs-image");
+
+        this.webglUtil = new WebglUtil();
 
         //debug
         console.log(this,this.render);
@@ -50,5 +58,17 @@ export class Game{
 
         this.colorRenderer.clear(this.clearColor);
         this.colorRenderer.rect(this.x,30,100,50,new Color(255,0,0,255));
+
+        //var tempimg: HTMLImageElement = document.querySelector("#imagee") as HTMLImageElement;
+        var tempimg = new Image();
+        tempimg.src='./image.png';
+        tempimg.onload=function(){
+            loop();
+        }
+
+        var tex: WebGLTexture = this.webglUtil.createTextureFromImage(tempimg,this.imageRender.gl);
+
+        this.imageRender.clear(normBgCol);
+        this.imageRender.drawImage(tex,new float2(30, 30),new float2(50, 50),new float2(tempimg.width,tempimg.height))
     }
 }

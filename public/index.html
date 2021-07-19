@@ -31,6 +31,7 @@
     <canvas id = 'bg-canvas' width="600px" height="400px"></canvas>
     <canvas id='char-canvas' width="600px" height="400px"></canvas>
     <canvas id='lights-canvas' width="600px" height="400px"></canvas>
+    <canvas id='image-reader' width="600px" height="400px"></canvas>
     
     <script id='vs-color' type='notjs'>
         attribute vec2 a_pos;
@@ -51,7 +52,7 @@
             gl_FragColor=u_color;
         }
     </script>
-    <script id='vs-image' type='notjs'>
+    <!-- <script id='vs-image' type='notjs'>
 	    attribute vec2 a_pos;
         attribute vec2 a_texcoord;
 
@@ -78,7 +79,7 @@
 	    void main(){
 	        gl_FragColor = texture2D(u_img, v_texcoord);
 	    }
-    </script>
+    </script> -->
 
     <img src='./image.png' id='imagee' style="display:none;">
 

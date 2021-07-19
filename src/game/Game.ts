@@ -1,4 +1,5 @@
 import { Color } from "../images/Color";
+import { Texture } from "../images/Texture";
 import { float2 } from "../math/float2";
 import { ColorRenderer } from "../renderer/colorRenderer";
 import { ImageRenderer } from "../renderer/imageRenderer";
@@ -19,7 +20,7 @@ export class Game{
     private webglUtil: WebglUtil;
 
     private x: number;
-
+    
     constructor(bgctx: WebGLRenderingContext,charctx: WebGLRenderingContext,lightctx: WebGLRenderingContext){
         if(!(bgctx.canvas.width==charctx.canvas.width && bgctx.canvas.height==charctx.canvas.height)){
             throw new Error('Canvas size of contexts provided are not same.');
@@ -38,7 +39,7 @@ export class Game{
         this.dimensions = new float2(bgctx.canvas.width,bgctx.canvas.height);
 
         this.colorRenderer = new ColorRenderer(this.lightsContext,"vs-color","fs-color");
-        this.imageRender = new ImageRenderer(this.backgroundContext,"vs-image","fs-image");
+        this.imageRender = new ImageRenderer(this.backgroundContext,"vs-color","fs-color");
 
         this.webglUtil = new WebglUtil();
 
@@ -52,23 +53,16 @@ export class Game{
     public render(bgctx: WebGLRenderingContext=this.backgroundContext,charctx: WebGLRenderingContext=this.characterContext, lctx: WebGLRenderingContext=this.lightsContext): void{
         //TODO: Do clearing ONlY if required.
 
-        var normBgCol: Color = this.clearColor.normalized;
+        //var normBgCol: Color = this.clearColor.normalized;
         // bgctx.clearColor(normBgCol.r,normBgCol.g,normBgCol.b,normBgCol.a);
         // bgctx.clear(bgctx.COLOR_BUFFER_BIT);
 
-        this.colorRenderer.clear(this.clearColor);
-        this.colorRenderer.rect(this.x,30,100,50,new Color(255,0,0,255));
+        //this.colorRenderer.clear(this.clearColor);
+        //this.colorRenderer.rect(this.x,30,100,50,new Color(255,0,0,255));
 
-        //var tempimg: HTMLImageElement = document.querySelector("#imagee") as HTMLImageElement;
-        var tempimg = new Image();
-        tempimg.src='./image.png';
-        tempimg.onload=function(){
-            loop();
-        }
+        var tex: Texture = new Texture("imagee");
 
-        var tex: WebGLTexture = this.webglUtil.createTextureFromImage(tempimg,this.imageRender.gl);
-
-        this.imageRender.clear(normBgCol);
-        this.imageRender.drawImage(tex,new float2(30, 30),new float2(50, 50),new float2(tempimg.width,tempimg.height))
+        this.imageRender.clear(this.clearColor);
+        this.imageRender.drawImageExact(tex,0,0);
     }
 }

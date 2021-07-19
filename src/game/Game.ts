@@ -1,5 +1,4 @@
 import { Color } from "../images/Color";
-import { Texture } from "../images/Texture";
 import { float2 } from "../math/float2";
 import { ColorRenderer } from "../renderer/colorRenderer";
 import { ImageRenderer } from "../renderer/imageRenderer";
@@ -20,6 +19,7 @@ export class Game{
     private webglUtil: WebglUtil;
 
     private x: number;
+    private temptex: HTMLImageElement;
     
     constructor(bgctx: WebGLRenderingContext,charctx: WebGLRenderingContext,lightctx: WebGLRenderingContext){
         if(!(bgctx.canvas.width==charctx.canvas.width && bgctx.canvas.height==charctx.canvas.height)){
@@ -43,6 +43,8 @@ export class Game{
 
         this.webglUtil = new WebglUtil();
 
+        this.temptex = document.getElementById('imagee') as HTMLImageElement;
+
         //debug
         console.log(this,this.render);
         this.x=0;
@@ -60,9 +62,8 @@ export class Game{
         //this.colorRenderer.clear(this.clearColor);
         //this.colorRenderer.rect(this.x,30,100,50,new Color(255,0,0,255));
 
-        var tex: Texture = new Texture("imagee");
 
-        this.imageRender.clear(this.clearColor);
-        this.imageRender.drawImageExact(tex,0,0);
+        //this.imageRender.clear(this.clearColor);
+        this.imageRender.drawImage(this.temptex,this.x,0);
     }
 }

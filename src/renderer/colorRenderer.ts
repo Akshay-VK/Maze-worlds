@@ -37,6 +37,7 @@ export class ColorRenderer{
 
         this.positionBuffer = this.gl.createBuffer();
         this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.positionBuffer);
+        
 
     }
 

@@ -39,7 +39,7 @@ export class Game{
         this.dimensions = new float2(bgctx.canvas.width,bgctx.canvas.height);
 
         this.colorRenderer = new ColorRenderer(this.lightsContext,"vs-color","fs-color");
-        this.imageRender = new ImageRenderer(this.backgroundContext,"vs-color","fs-color");
+        this.imageRender = new ImageRenderer(this.lightsContext,"vs-image","fs-image");
 
         this.webglUtil = new WebglUtil();
 
@@ -59,8 +59,8 @@ export class Game{
         // bgctx.clearColor(normBgCol.r,normBgCol.g,normBgCol.b,normBgCol.a);
         // bgctx.clear(bgctx.COLOR_BUFFER_BIT);
 
-        //this.colorRenderer.clear(this.clearColor);
-        //this.colorRenderer.rect(this.x,30,100,50,new Color(255,0,0,255));
+        this.colorRenderer.clear(this.clearColor);
+        this.colorRenderer.rect(this.x,30,100,50,new Color(255,0,0,255));
 
 
         //this.imageRender.clear(this.clearColor);

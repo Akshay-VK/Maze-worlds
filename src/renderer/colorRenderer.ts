@@ -30,6 +30,8 @@ export class ColorRenderer{
         
         this.program = this.glUtil.createProgram(this.gl,this.vs,this.fs);
 
+        this.gl.useProgram(this.program);
+
         //get locations
         this.a_posLoc = this.gl.getAttribLocation(this.program,"a_pos");
         this.u_resLoc = this.gl.getUniformLocation(this.program, "u_res");

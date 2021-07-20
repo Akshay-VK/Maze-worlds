@@ -72,12 +72,19 @@ export class ImageRenderer{
         this.gl.clear(this.gl.COLOR_BUFFER_BIT);
     }
 
-    public drawImage(tex: HTMLImageElement, x: number, y: number): void{
+    public drawImage(tex: HTMLImageElement, x: number, y: number, w?: number, h?: number, sx?: number, sy?: number, sw?: number, sh?: number): void{
         
         this.gl.useProgram(this.program);
 
-        var width = tex.width;
-        var height = tex.height;
+        var width: number, height: number;
+
+        if(w&&h){
+            width = w;
+            height = h;
+        }else{
+            width = tex.width;
+            height = tex.height;
+        }
         // Upload the image into the texture.
         //TODO: DO NOT upload the data every time as it can cause performance problems
         if(this.prevImage != tex){
@@ -103,14 +110,29 @@ export class ImageRenderer{
 
         //texture
         this.gl.bindBuffer(this.gl.ARRAY_BUFFER,this.texcoordBuffer);
-        this.gl.bufferData(this.gl.ARRAY_BUFFER, new Float32Array([
-            0.0,  0.0,
-            1.0,  0.0,
-            0.0,  1.0,
-            0.0,  1.0,
-            1.0,  0.0,
-            1.0,  1.0
-        ]), this.gl.STATIC_DRAW);
+        if(sx&&sy&&sw&&sh){
+            var x1 = sx/tex.width;
+            var y1 = sy/tex.height;
+            var x2 = x1+(sw/tex.width);
+            var y2 = y1+(sh/tex.height);
+            this.gl.bufferData(this.gl.ARRAY_BUFFER, new Float32Array([
+                x1,y1,
+                x2,y1,
+                x1,y2,
+                x1,y2,
+                x2,y1,
+                x2,y2
+            ]), this.gl.STATIC_DRAW);
+        }else{
+            this.gl.bufferData(this.gl.ARRAY_BUFFER, new Float32Array([
+                0.0,  0.0,
+                1.0,  0.0,
+                0.0,  1.0,
+                0.0,  1.0,
+                1.0,  0.0,
+                1.0,  1.0
+            ]), this.gl.STATIC_DRAW);
+        }
     
         this.gl.enableVertexAttribArray(this.a_texcoordLoc);
     

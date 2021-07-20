@@ -65,5 +65,8 @@ export class Game{
 
         //this.imageRender.clear(this.clearColor);
         this.imageRender.drawImage(this.temptex,this.x,0);
+        this.imageRender.drawImage(this.temptex, this.x, 100, 100,50);
+        this.imageRender.drawImage(this.temptex, this.x, 200, 100,50,0, 0, 50, 50);
+        
     }
 }

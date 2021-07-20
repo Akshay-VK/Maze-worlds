@@ -22,6 +22,9 @@ export class ImageRenderer{
     private texcoordBuffer: WebGLBuffer;
 
     private plainTex: WebGLTexture;
+
+    //variable to check if the same image was provided or not
+    private prevImage: HTMLImageElement;
     
     public constructor(gl: WebGLRenderingContext, vertexShaderId: string, fragmentShaderId: string){
 	    this.gl = gl;
@@ -44,23 +47,15 @@ export class ImageRenderer{
             this.a_texcoordLoc = 1;
         }
 
-
+        //create and set buffers
         this.positionBuffer = this.gl.createBuffer();
-        this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.positionBuffer);
-        this.gl.bufferData(this.gl.ARRAY_BUFFER, new Float32Array(
-            [0.0,  0.0,
-            1.0,  0.0,
-            0.0,  1.0,
-            0.0,  1.0,
-            1.0,  0.0,
-            1.0,  1.0]
-        ), this.gl.STATIC_DRAW);
-       
+        this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.positionBuffer);       
 
         this.texcoordBuffer = this.gl.createBuffer();
         this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.texcoordBuffer);
         
 
+        //create texture
         this.plainTex = this.gl.createTexture();
         this.gl.bindTexture(this.gl.TEXTURE_2D, this.plainTex);
         
@@ -68,10 +63,7 @@ export class ImageRenderer{
         this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_WRAP_S, this.gl.CLAMP_TO_EDGE);
         this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_WRAP_T, this.gl.CLAMP_TO_EDGE);
         this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_MIN_FILTER, this.gl.NEAREST);
-        this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_MAG_FILTER, this.gl.NEAREST);
-
-        
-        
+        this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_MAG_FILTER, this.gl.NEAREST); 
     }
 
     public clear(color: Color): void{
@@ -87,9 +79,14 @@ export class ImageRenderer{
         var width = tex.width;
         var height = tex.height;
         // Upload the image into the texture.
-        this.gl.texImage2D(this.gl.TEXTURE_2D, 0, this.gl.RGBA, this.gl.RGBA, this.gl.UNSIGNED_BYTE, tex);
+        //TODO: DO NOT upload the data every time as it can cause performance problems
+        if(this.prevImage != tex){
+            this.gl.texImage2D(this.gl.TEXTURE_2D, 0, this.gl.RGBA, this.gl.RGBA, this.gl.UNSIGNED_BYTE, tex);
+            this.prevImage = tex;
+        }
         this.gl.bindTexture(this.gl.TEXTURE_2D, this.plainTex);
 
+        //rect
         this.glUtil.resizeCanvasToDisplaySize(this.gl);
 
         this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.positionBuffer);
@@ -104,7 +101,7 @@ export class ImageRenderer{
         this.gl.enableVertexAttribArray(this.a_posLoc);
         this.gl.vertexAttribPointer(this.a_posLoc, 2, this.gl.FLOAT, false, 0, 0);
 
-        if(this.a_texcoordLoc != -1){
+        //texture
         this.gl.bindBuffer(this.gl.ARRAY_BUFFER,this.texcoordBuffer);
         this.gl.bufferData(this.gl.ARRAY_BUFFER, new Float32Array([
             0.0,  0.0,
@@ -114,27 +111,10 @@ export class ImageRenderer{
             1.0,  0.0,
             1.0,  1.0
         ]), this.gl.STATIC_DRAW);
-        
-            this.gl.enableVertexAttribArray(this.a_texcoordLoc);
-        
-            this.gl.vertexAttribPointer(this.a_texcoordLoc, 2, this.gl.FLOAT, false, 0, 0);
-        }
-
-
-        // this.gl.vertexAttribPointer(this.a_posLoc, 2, this.gl.FLOAT, false, 0, 0);
-
-        // this.gl.bufferData(this.gl.ARRAY_BUFFER,new Float32Array([
-        //     x,y,
-        //     x,y+height,
-        //     x+width,y,
-        //     x+width,y,
-        //     x,y+height,
-        //     x+width,y+height
-        // ]),this.gl.STATIC_DRAW);
-
-        // this.gl.enableVertexAttribArray(this.a_texcoordLoc);
-        // this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.texcoordBuffer);
-        // this.gl.vertexAttribPointer(this.a_texcoordLoc, 2, this.gl.FLOAT, false, 0, 0);
+    
+        this.gl.enableVertexAttribArray(this.a_texcoordLoc);
+    
+        this.gl.vertexAttribPointer(this.a_texcoordLoc, 2, this.gl.FLOAT, false, 0, 0);
 
         this.gl.uniform2f(this.u_resLoc, this.gl.canvas.width, this.gl.canvas.height);
 

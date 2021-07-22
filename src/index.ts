@@ -20,8 +20,14 @@ function loop(){
     game.render();
 
     fr=(fr+1)%60;
-    debug.innerHTML=`${fr}`;
+    //debug.innerHTML=`${fr}`;
 
     requestAnimationFrame(loop);
 }
 requestAnimationFrame(loop);
+
+window.addEventListener("keydown",function(event){
+    if(event.defaultPrevented){
+        document.querySelector('#debug').innerHTML=event.key;
+    }
+});

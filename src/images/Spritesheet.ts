@@ -33,7 +33,7 @@ export class SpriteSheet{
         if(this.locations[key]){
             var loc: float2 = this.locations[key];
 
-            return new dim2(loc.x*this.unitSize.x+1,loc.y*this.unitSize.y+1, this.unitSize.x, this.unitSize.y);
+            return new dim2(loc.x*this.unitSize.x+1,loc.y*this.unitSize.y+1, this.unitSize.x-1, this.unitSize.y-1);
         }else{
             throw new Error('key doesn\'t exist');
         }

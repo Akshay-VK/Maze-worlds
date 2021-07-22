@@ -46,7 +46,7 @@ export class Game{
 
         this.dimensions = new float2(bgctx.canvas.width,bgctx.canvas.height);
 
-        this.colorRenderer = new ColorRenderer(this.lightsContext,"vs-color","fs-color");
+        this.colorRenderer = new ColorRenderer(this.backgroundContext,"vs-color","fs-color");
         this.imageRender = new ImageRenderer(this.lightsContext,"vs-image","fs-image");
 
         
@@ -56,7 +56,12 @@ export class Game{
             "l1":new float2(0,0),
             "l2":new float2(1,0),
             "l3":new float2(2,0),
-            "l4":new float2(3,0)
+            "l4":new float2(3,0),
+            "l5":new float2(4,0),
+            "l6":new float2(5,0),
+            "l7":new float2(0,1),
+            "l8":new float2(1,1)
+
         })
 
         this.webglUtil = new WebglUtil();
@@ -66,7 +71,7 @@ export class Game{
         console.log(this,this.render);
         this.x=0;
         this.frameNumber = 1;
-        this.frameCount=0;
+        this.frameCount=1;
     }
     public update(): void{
         this.x=(this.x+1)%600;
@@ -74,8 +79,11 @@ export class Game{
         this.frameCount = (this.frameCount+1)%60;
 
         //changes
-        if(this.frameCount==0){
-            this.frameNumber = ((this.frameNumber+1)%4);
+        if(this.frameCount%5==0){
+            this.frameNumber = ((this.frameNumber+1)%9);
+            if(this.frameNumber==0){
+                this.frameNumber=1;
+            }
         }
     }
     public render(bgctx: WebGLRenderingContext=this.backgroundContext,charctx: WebGLRenderingContext=this.characterContext, lctx: WebGLRenderingContext=this.lightsContext): void{
@@ -90,11 +98,11 @@ export class Game{
 
 
         //this.imageRender.clear(this.clearColor);
-        this.imageRender.drawImage(this.temptex,this.x,0);
+        //this.imageRender.drawImage(this.temptex,this.x,0);
         //this.imageRender.drawImage(this.temptex, this.x, 100, 100,50);
         //this.imageRender.drawImage(this.temptex, this.x, 200, 25,25,1, 1, 25, 25);
         var loc: dim2 = this.spriteSheet.getImage("l"+this.frameNumber);
         
-        this.imageRender.drawImage(this.temptex,20,200,50,50,loc.x,loc.y,loc.width,loc.height);
+        this.imageRender.drawImage(this.temptex,20,30,50,50,loc.x,loc.y,loc.width,loc.height);
     }
 }

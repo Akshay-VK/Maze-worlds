@@ -1,6 +1,6 @@
 # Maze Worlds
 
-##### [Check out the game here.](https://akshay-vk.github.io/maze-worlds/public)
+##### [Check out the game here.](https://akshay-vk.github.io/Maze-worlds/public)
 
 ### The Idea
 

@@ -27,7 +27,5 @@ function loop(){
 requestAnimationFrame(loop);
 
 window.addEventListener("keydown",function(event){
-    if(event.defaultPrevented){
-        document.querySelector('#debug').innerHTML=event.key;
-    }
+    console.log(event);
 });

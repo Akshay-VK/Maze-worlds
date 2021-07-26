@@ -5,6 +5,7 @@ import { float2 } from "../math/float2";
 import { ColorRenderer } from "../renderer/colorRenderer";
 import { ImageRenderer } from "../renderer/imageRenderer";
 import { WebglUtil } from "../util/webgl";
+import { InputHandler } from "../util/inputHandler";
 
 export class Game{
     private backgroundContext: WebGLRenderingContext;
@@ -26,6 +27,7 @@ export class Game{
     private frameNumber: number;
     private temptex: HTMLImageElement;
     private frameCount;
+    private inp: InputHandler;
 
 
     
@@ -65,6 +67,8 @@ export class Game{
         })
 
         this.webglUtil = new WebglUtil();
+
+        this.inp = new InputHandler();
 
 
         //debug

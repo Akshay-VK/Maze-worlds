@@ -33,8 +33,9 @@ export class WebglUtil{
     }
     public resizeCanvasToDisplaySize(gl: WebGLRenderingContext): void{
         // Lookup the size the browser is displaying the canvas in CSS pixels.
-        const displayWidth: number  = gl.canvas.clientWidth;
-        const displayHeight: number = gl.canvas.clientHeight;
+        var cnv: HTMLCanvasElement = <HTMLCanvasElement> gl.canvas;
+        const displayWidth: number  = cnv.clientWidth;
+        const displayHeight: number = cnv.clientHeight;
         
         // Check if the canvas is not the same size.
         const needResize = gl.canvas.width  !== displayWidth ||

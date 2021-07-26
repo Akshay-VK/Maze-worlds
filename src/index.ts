@@ -26,6 +26,6 @@ function loop(){
 }
 requestAnimationFrame(loop);
 
-window.addEventListener("keydown",function(event){
-    console.log(event);
-});
+//window.addEventListener("keydown",function(event){
+    //console.log(event);
+//});

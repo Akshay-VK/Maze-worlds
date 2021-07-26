@@ -1,10 +1,9 @@
 export class InputHandler{
 
-    private cnv: HTMLCanvasElement;
-
-    public constructor(cnv: HTMLCanvasElement){
-        this.cnv = cnv;
-        this.cnv.addEventListener('keydown',(e: KeyboardEvent)=>this.handleKeys(e.code));
+    public constructor(){
+        window.addEventListener('keydown',(e: KeyboardEvent)=>{
+            this.handleKeys(e.code);
+        });
     }
 
     private handleKeys(key: string): void{
@@ -13,14 +12,14 @@ export class InputHandler{
             case 'KeyW':
                 console.log('w')
                 break;
-            case 'KeyW':
-                console.log('w')
+            case 'KeyA':
+                console.log('a')
                 break;
-            case 'KeyW':
-                console.log('w')
+            case 'KeyS':
+                console.log('s')
                 break;
-            case 'KeyW':
-                console.log('w')
+            case 'KeyD':
+                console.log('d')
                 break;
                     
             default:

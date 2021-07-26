@@ -116,12 +116,12 @@ export class ImageRenderer{
             var x2 = x1+(sw/tex.width);
             var y2 = y1+(sh/tex.height);
             this.gl.bufferData(this.gl.ARRAY_BUFFER, new Float32Array([
+                x1,y1,
+                x1,y2,
                 x2,y1,
-                x2,y2,
-                x1,y1,
-                x1,y1,
-                x2,y2,
-                x1,y2
+                x2,y1,
+                x1,y2,
+                x2,y2
             ]), this.gl.STATIC_DRAW);
         }else{
             this.gl.bufferData(this.gl.ARRAY_BUFFER, new Float32Array([

@@ -50,7 +50,7 @@ export class Player{
 	
 	public update(){
 		this.frame=(this.frame+1)%60;
-                if(this.imgFrameNumber == 0){this.imgFrameNumber=1;}		
+        if(this.imgFrameNumber == 0){this.imgFrameNumber=1;}		
 		if(this.frame%5 == 0){
 			this.imgFrameNumber = (this.imgFrameNumber)%(this.totalFrames);
 		}
@@ -61,5 +61,6 @@ export class Player{
 		var loc: dim2 = this.spritesheet.getImage("l"+this.imgFrameNumber);
         
         this.renderer.drawImage(this.img,this.dim.x,this.dim.y,this.dim.width,this.dim.height,loc.x,loc.y,loc.width,loc.height);
+		console.log('rendered');
 	}
 }

@@ -30,7 +30,7 @@ export class SpriteSheet{
 
     }
     public getImage(key: string): dim2{
-        if(this.locations[key]){
+        if(this.locations.hasOwnProperty(key)){
             var loc: float2 = this.locations[key];
 
             return new dim2(loc.x*this.unitSize.x+1,loc.y*this.unitSize.y+1, this.unitSize.x-1, this.unitSize.y-1);

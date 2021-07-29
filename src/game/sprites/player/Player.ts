@@ -46,6 +46,8 @@ export class Player{
 		this.frame = 0;
 		
 		this.inp = new InputHandler();
+        
+        console.log(this);
     }
 	
 	public update(){

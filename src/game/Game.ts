@@ -54,7 +54,7 @@ export class Game{
         
         this.imgTex = document.getElementById('imagee') as HTMLImageElement;
 
-		this.player = new Player(this.imageRender, new float2(10,50), new float2(25,25),this.imgTex, new float2(2,2));
+		this.player = new Player(this.lightsContext, new float2(10,50), new float2(25,25), new float2(2,2));
 
         this.webglUtil = new WebglUtil();
 

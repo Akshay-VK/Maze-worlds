@@ -6,6 +6,8 @@ import { InputHandler } from "../../../util/inputHandler";
 
 export class Player{
     
+    private gl: WebGLRenderingContext;
+    
     private renderer: ImageRenderer;
 	
 	private dim: dim2;
@@ -22,14 +24,16 @@ export class Player{
 	
 	private frame: number;
 
-    public constructor(renderer: ImageRenderer, pos: float2, size: float2, img: HTMLImageElement, unitSize: float2){
-        this.renderer = renderer;
+    public constructor(gl: WebGLRenderingContext, pos: float2, size: float2, unitSize: float2){
+        this.gl = gl;
+        
+        this.renderer = new ImageRenderer(this.gl,"vs-image","fs-image");;
 		
 		this.dim = new dim2(pos.x,pos.y,size.x,size.y);
 		
 		this.imgUnitSize = unitSize;
 		
-		this.img = img;
+		this.img = <HTMLImageElement>document.getElementById('imagee');
 		this.spritesheet = new SpriteSheet(this.img, this.imgUnitSize, {
 			"l1":new float2(0,0),
             "l2":new float2(1,0),
@@ -57,7 +61,7 @@ export class Player{
 			this.imgFrameNumber = (this.imgFrameNumber)%(this.totalFrames);
 		}
 		
-		//console.log(this.inp.keys);
+		console.log(this.inp.keys);
 	}
 	public render(){
 		var loc: dim2 = this.spritesheet.getImage("l"+this.imgFrameNumber);

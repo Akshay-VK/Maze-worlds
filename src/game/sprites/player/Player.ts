@@ -65,6 +65,7 @@ export class Player{
 	}
 	public render(){
 		var loc: dim2 = this.spritesheet.getImage("l"+this.imgFrameNumber);
+		console.log(loc);
         
         this.renderer.drawImage(this.img,this.dim.x,this.dim.y,this.dim.width,this.dim.height,loc.x,loc.y,loc.width,loc.height);
 		console.log('rendered');

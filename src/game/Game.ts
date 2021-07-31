@@ -86,7 +86,7 @@ export class Game{
         this.imageRender.clear(this.clearColor);
         //this.imageRender.drawImage(this.imgTex,this.x,0);
         //this.imageRender.drawImage(this.imgTex, this.x, 100, 100,50);
-        //this.imageRender.drawImage(this.imgTex, this.x, 200, 25,25,1, 1, 25, 25);
+        this.imageRender.drawImage(this.imgTex, this.x, 200, 25,25,1, 1, 25, 25);
         this.player.render();
     }
 }

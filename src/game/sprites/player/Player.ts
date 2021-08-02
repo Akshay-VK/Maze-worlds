@@ -56,18 +56,20 @@ export class Player{
 	
 	public update(){
 		this.frame=(this.frame+1)%60;
-        if(this.imgFrameNumber == 0){this.imgFrameNumber=1;}		
+                console.log(this.frame,this.imgFrameNumber);
+        		
 		if(this.frame%5 == 0){
-			this.imgFrameNumber = (this.imgFrameNumber)%(this.totalFrames);
+			this.imgFrameNumber = (this.imgFrameNumber+1)%(this.totalFrames+1);
 		}
+                if(this.imgFrameNumber == 0){this.imgFrameNumber=1;}
 		
-		console.log(this.inp.keys);
+		//console.log(this.inp.keys);
 	}
 	public render(){
 		var loc: dim2 = this.spritesheet.getImage("l"+this.imgFrameNumber);
-		console.log(loc);
+		//console.log(loc);
         
         this.renderer.drawImage(this.img,this.dim.x,this.dim.y,this.dim.width,this.dim.height,loc.x,loc.y,loc.width,loc.height);
-		console.log('rendered');
+		//console.log('rendered');
 	}
 }

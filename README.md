@@ -11,13 +11,13 @@ It is set in a infinite world which is a maze.
 
 For my last game, a serious problem I faced was performance. The game was barely running at 60fps.
 
-So, this time, im going to use multiple canvases and WebGL! They will be:
+So, this time, I'm going to use multiple canvases and WebGL. They will be:
 
 - Background: Updated only when required
 - Characters: Updated everytime
 - Lights: Updated every time
 
-### The languages
+### The Languages
 
 - **Typescript**: I will be using typescriptbecause it is awesome(and has static typing).
 - **Webpack**: To minify the code (duh)

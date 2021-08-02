@@ -67,20 +67,21 @@ export class Player{
 	}
 
         private handleKeys(keys: Object): void{
-
-		console.log(keys);
-                if(keys.w ==true){
-			this.dim.y-=2;
-	        }
-		if(keys.a==true){
-			this.dim.x-=2;
-	        }
-		if(keys.s==true){
-	                this.dim.y+=2;
-    	        }
-		if(keys.d==true){
- 	    	        this.dim.x+=2;
-	        }
+		if(this.frame%5==0){
+			//console.log(keys);
+	                if(keys.w ==true){
+				this.dim.y-=2;
+		        }
+			if(keys.a==true){
+				this.dim.x-=2;
+		        }
+			if(keys.s==true){
+		                this.dim.y+=2;
+	    	        }
+			if(keys.d==true){
+ 	    	        	this.dim.x+=2;
+	        	}
+		}
         }
 
 	public render(){

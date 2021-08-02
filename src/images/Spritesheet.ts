@@ -35,7 +35,7 @@ export class SpriteSheet{
 
             return new dim2(loc.x*this.unitSize.x+1,loc.y*this.unitSize.y+1, this.unitSize.x-1, this.unitSize.y-1);
         }else{
-            throw new Error('key doesn\'t exist');
+            throw new Error("key \'"+key+"\' doesn\'t exist");
         }
     }
 }

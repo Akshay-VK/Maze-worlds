@@ -1,29 +1,28 @@
 import { float2 } from "./float2";
 
 export class dim2{
-    private pos: float2;
-    private sizze: float2;
+    public x: number;
+    public y: number;
+    public width: number;
+    public height: number;
     public constructor(x: number, y: number, width: number, height: number){
-        this.pos = new float2(x,y);
-        this.sizze = new float2(width,height);
-    }
-
-    public get x(): number{
-        return this.pos.x;
-    }
-    public get y(): number{
-        return this.pos.y;
-    }
-    public get width(): number{
-        return this.sizze.x;
-    }
-    public get height(): number{
-        return this.sizze.y;
+        this.x=x;
+        this.y=y;
+	this.width=width;
+	this.height=height;
     }
     public get position(): float2{
-        return this.pos;
+        return new float2(this.x,this.y);
     }
     public get size(): float2{
-        return this.sizze;
+        return new float2(this.width,this.height);
+    }
+    public setPos(p: float2): void{
+    	this.x = p.x;
+	this.y = p.y;
+    }
+    public setSize(p: float2): void{
+    	this.width=p.x;
+	this.height=p.y;
     }
 }

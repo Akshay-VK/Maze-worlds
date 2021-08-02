@@ -36,13 +36,13 @@ export class Player{
 		this.img = <HTMLImageElement>document.getElementById('imagee');
 		this.spritesheet = new SpriteSheet(this.img, this.imgUnitSize, {
 			"l1":new float2(0,0),
-            "l2":new float2(1,0),
-            "l3":new float2(2,0),
-            "l4":new float2(3,0),
-            "l5":new float2(4,0),
-            "l6":new float2(5,0),
-            "l7":new float2(0,1),
-            "l8":new float2(1,1)
+	                "l2":new float2(1,0),
+        	        "l3":new float2(2,0),
+                        "l4":new float2(3,0),
+                        "l5":new float2(4,0),
+                        "l6":new float2(5,0),
+                        "l7":new float2(0,1),
+                        "l8":new float2(1,1)
 		});
 		this.totalFrames = 8;
 		
@@ -63,8 +63,26 @@ export class Player{
 		}
                 if(this.imgFrameNumber == 0){this.imgFrameNumber=1;}
 		
-		//console.log(this.inp.keys);
+		this.handleKeys(this.inp.keys);
 	}
+
+        private handleKeys(keys: Object): void{
+
+		console.log(keys);
+                if(keys.w ==true){
+			this.dim.y-=2;
+	        }
+		if(keys.a==true){
+			this.dim.x-=2;
+	        }
+		if(keys.s==true){
+	                this.dim.y+=2;
+    	        }
+		if(keys.d==true){
+ 	    	        this.dim.x+=2;
+	        }
+        }
+
 	public render(){
 		var loc: dim2 = this.spritesheet.getImage("l"+this.imgFrameNumber);
 		//console.log(loc);

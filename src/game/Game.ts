@@ -27,7 +27,7 @@ export class Game{
     private frameNumber: number;
     private imgTex: HTMLImageElement;
 	
-	private player: Player;
+    private player: Player;
 
 
     
@@ -54,7 +54,7 @@ export class Game{
         
         this.imgTex = document.getElementById('imagee') as HTMLImageElement;
 
-		this.player = new Player(this.lightsContext, new float2(10,50), new float2(25,25), new float2(25,25));
+	this.player = new Player(this.imageRender, new float2(10,50), new float2(25,25), new float2(25,25));
 		
         this.webglUtil = new WebglUtil();
 
@@ -64,13 +64,10 @@ export class Game{
         this.frameNumber = 1;
     }
     public update(): void{
-        this.x=(this.x+1)%600;
+	this.frameNumber += 1;
+	this.frameNumber %= 60;
 		
-		
-		this.frameNumber += 1;
-		this.frameNumber %= 60;
-		
-		this.player.update();
+	this.player.update();
     }
     public render(bgctx: WebGLRenderingContext=this.backgroundContext,charctx: WebGLRenderingContext=this.characterContext, lctx: WebGLRenderingContext=this.lightsContext): void{
         //TODO: Do clearing ONlY if required.
@@ -86,7 +83,7 @@ export class Game{
         //this.imageRender.clear(this.clearColor);
         //this.imageRender.drawImage(this.imgTex,this.x,0);
         //this.imageRender.drawImage(this.imgTex, this.x, 100, 100,50);
-        this.imageRender.drawImage(this.imgTex, this.x, 200, 25,25,1, 1, 25, 25);
+        //this.imageRender.drawImage(this.imgTex, this.x, 200, 25,25,1, 1, 25, 25);
         this.player.render();
     }
 }

@@ -6,6 +6,7 @@ import { ColorRenderer } from "../renderer/colorRenderer";
 import { ImageRenderer } from "../renderer/imageRenderer";
 import { WebglUtil }     from "../util/webgl";
 import { InputHandler }  from "../util/inputHandler";
+import { Handler }  from "../util/Handler";
 import { Player }        from "./sprites/player/Player";
 
 export class Game{
@@ -20,6 +21,7 @@ export class Game{
     private colorRenderer: ColorRenderer;
     private imageRender: ImageRenderer;
 
+    private handler: Handler;
 
     private webglUtil: WebglUtil;
 
@@ -55,6 +57,8 @@ export class Game{
         this.imgTex = document.getElementById('imagee') as HTMLImageElement;
 
 	this.player = new Player(this.imageRender, new float2(10,50), new float2(25,25), new float2(25,25));
+        
+        this.handler = new Handler(this.player);
 		
         this.webglUtil = new WebglUtil();
 
@@ -67,7 +71,7 @@ export class Game{
 	this.frameNumber += 1;
 	this.frameNumber %= 60;
 		
-	this.player.update();
+	this.handler.update();
     }
     public render(bgctx: WebGLRenderingContext=this.backgroundContext,charctx: WebGLRenderingContext=this.characterContext, lctx: WebGLRenderingContext=this.lightsContext): void{
         //TODO: Do clearing ONlY if required.
@@ -84,6 +88,6 @@ export class Game{
         //this.imageRender.drawImage(this.imgTex,this.x,0);
         //this.imageRender.drawImage(this.imgTex, this.x, 100, 100,50);
         //this.imageRender.drawImage(this.imgTex, this.x, 200, 25,25,1, 1, 25, 25);
-        this.player.render();
+        this.handler.render();
     }
 }

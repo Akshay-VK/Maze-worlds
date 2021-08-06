@@ -6,19 +6,18 @@ import { ImageRenderer } from "../../renderer/imageRenderer";
 
 
 export class Sprite{
-    private renderer: ImageRenderer;
-    private spritesheet : SpriteSheet;
+    protected renderer: ImageRenderer;
+    protected spritesheet : SpriteSheet;
     
-    private dim: dim2;
+    public dim: dim2;
     
-    private image: HTMLImageElement;
+    protected image: HTMLImageElement;
     
-    private frame: number;
-    private totalFrames: number;
-    private imgFrameNumber: number;
+    protected frame: number;
+    protected totalFrames: number;
+    protected imgFrameNumber: number;
         
-    constructor(ren: ImageRenderer, pos: float2, size: float2, unitSize: float2, totalFrames: number,
-                spritesheetKeys: Object){
+    constructor(ren: ImageRenderer, pos: float2, size: float2, unitSize: float2, totalFrames: number, spritesheetKeys: Object){
         this.renderer = ren;
         this.dim = new dim2(pos.x, pos.y, size.x, size.y);
         

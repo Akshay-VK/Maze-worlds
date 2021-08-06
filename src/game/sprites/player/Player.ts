@@ -1,45 +1,25 @@
 import { float2 } from "../../../math/float2";
 import { dim2 } from "../../../math/Dim2";
 import { Directions } from "../../../util/directions";
-import { SpriteSheet } from "../../../images/Spritesheet";
 import { ImageRenderer } from "../../../renderer/imageRenderer";
 import { InputHandler } from "../../../util/inputHandler";
+import { Sprite } from "../Sprite";
 
-export class Player{
+export class Player extends Sprite{
    
-    private renderer: ImageRenderer;
-	
     public dim: dim2;
     private velocity: float2;
     private direction: Directions;
 	
-    private spritesheet: SpriteSheet;
-	
     private img: HTMLImageElement;
-    private imgUnitSize: float2;
 	
-    private imgFrameNumber: number;
-    private totalFrames: number;
 		
     private inp: InputHandler;
 	
-    private frame: number;
-    
     private renderPos: float2;
 
     public constructor(ren: ImageRenderer, pos: float2, size: float2, unitSize: float2){
-        
-        this.renderer = ren;
-		
-        this.dim = new dim2(pos.x,pos.y,size.x,size.y);
-
-        this.velocity = new float2(2,2);
-        this.direction = Directions.East;
-		
-        this.imgUnitSize = unitSize;
-
-        this.img = <HTMLImageElement>document.getElementById('imagee');
-        this.spritesheet = new SpriteSheet(this.img, this.imgUnitSize, {
+        super(ren, pos,size, unitSize, 8, {
             "l1":new float2(0,0),
             "l2":new float2(1,0),
             "l3":new float2(2,0),
@@ -56,7 +36,15 @@ export class Player{
             "r6":new float2(1,2),
             "r7":new float2(2,2),
             "r8":new float2(3,2)
-	   });
+        })
+        
+        this.dim = new dim2(pos.x,pos.y,size.x,size.y);
+
+        this.velocity = new float2(2,2);
+        this.direction = Directions.East;
+		
+
+        this.img = <HTMLImageElement>document.getElementById('imagee');
     
         this.renderPos = new float2(0,0);
         this.renderPos = float2.add(this.renderPos,new float2(600,400));
@@ -71,54 +59,52 @@ export class Player{
         this.totalFrames = 8;
 
         this.imgFrameNumber=1;
-        this.frame = 0;
-
         this.inp = new InputHandler();
 
         console.log(this);
     }
 	
 	public update(){
-	    this.frame=(this.frame+1)%60;
-            console.log(this.frame,this.imgFrameNumber);
+	    super.frame=(super.frame+1)%60;
+            console.log(super.frame,super.imgFrameNumber);
         		
- 	    if(this.frame%5 == 0){
-	        this.imgFrameNumber = (this.imgFrameNumber+1)%(this.totalFrames+1);
+ 	    if(super.frame%5 == 0){
+	        super.imgFrameNumber = (super.imgFrameNumber+1)%(super.totalFrames+1);
 	    }
-            if(this.imgFrameNumber == 0){this.imgFrameNumber=1;}
+            if(super.imgFrameNumber == 0){super.imgFrameNumber=1;}
 		
 	    this.handleKeys(this.inp.keys);
 	}
 
-        private handleKeys(keys: Object): void{
-	    if(this.frame%5==0){
-                if(keys.w ==true){
-                        this.direction = Directions.East;
-                        this.dim.y-=this.velocity.y;
-                }else if(keys.a==true){
-                        this.direction = Directions.West;
-                        this.dim.x-=this.velocity.x;
-                }else if(keys.s==true){
-                        this.direction = Directions.West;
-                        this.dim.y+=this.velocity.y;
-                }else if(keys.d==true){
-                        this.direction = Directions.East;
-                    this.dim.x+=this.velocity.x;
-                }
+    private handleKeys(keys: Object): void{
+    if(this.frame%5==0){
+            if(keys["w"] ==true){
+                    this.direction = Directions.East;
+                    this.dim.y-=this.velocity.y;
+            }else if(keys["a"]==true){
+                    this.direction = Directions.West;
+                    this.dim.x-=this.velocity.x;
+            }else if(keys["s"]==true){
+                    this.direction = Directions.West;
+                    this.dim.y+=this.velocity.y;
+            }else if(keys["d"]==true){
+                    this.direction = Directions.East;
+                this.dim.x+=this.velocity.x;
             }
         }
+    }
 
 	public render(){
 
             if(this.direction == Directions.East){
-                var loc: dim2 = this.spritesheet.getImage("r"+this.imgFrameNumber);
+                var loc: dim2 = super.spritesheet.getImage("r"+super.imgFrameNumber);
         
-                this.renderer.drawImage(this.img,this.renderPos.x,this.renderPos.y,this.dim.width,this.dim.height,loc.x,loc.y,loc.width,loc.height);
+                super.renderer.drawImage(this.img,this.renderPos.x,this.renderPos.y,this.dim.width,this.dim.height,loc.x,loc.y,loc.width,loc.height);
             }else{
 
-	        var loc: dim2 = this.spritesheet.getImage("l"+this.imgFrameNumber);
+	        var loc: dim2 = super.spritesheet.getImage("l"+super.imgFrameNumber);
         
-                this.renderer.drawImage(this.img,this.renderPos.x,this.renderPos.y,this.dim.width,this.dim.height,loc.x,loc.y,loc.width,loc.height);
+                super.renderer.drawImage(this.img,this.renderPos.x,this.renderPos.y,this.dim.width,this.dim.height,loc.x,loc.y,loc.width,loc.height);
             }
 	}
 }

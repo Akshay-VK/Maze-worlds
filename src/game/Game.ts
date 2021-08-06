@@ -1,15 +1,41 @@
-import { Color }         from "../images/Color";
-import { SpriteSheet }   from "../images/Spritesheet";
-import { dim2 }          from "../math/Dim2";
-import { float2 }        from "../math/float2";
-import { ColorRenderer } from "../renderer/colorRenderer";
-import { ImageRenderer } from "../renderer/imageRenderer";
-import { WebglUtil }     from "../util/webgl";
-import { InputHandler }  from "../util/inputHandler";
-import { Handler }  from "../util/Handler";
-import { Player }        from "./sprites/player/Player";
+import {
+    Color
+} from "../images/Color";
+import {
+    SpriteSheet
+} from "../images/Spritesheet";
+import {
+    dim2
+} from "../math/Dim2";
+import {
+    float2
+} from "../math/float2";
+import {
+    ColorRenderer
+} from "../renderer/colorRenderer";
+import {
+    ImageRenderer
+} from "../renderer/imageRenderer";
+import {
+    WebglUtil
+} from "../util/webgl";
+import {
+    InputHandler
+} from "../util/inputHandler";
+import {
+    Handler
+} from "../util/Handler";
+import {
+    Player
+} from "./sprites/player/Player";
+import {
+    Sprite
+} from "./sprites/Sprite";
+import {
+    DebugSprite
+} from "./sprites/DebugSprite";
 
-export class Game{
+export class Game {
     private backgroundContext: WebGLRenderingContext;
     private characterContext: WebGLRenderingContext;
     private lightsContext: WebGLRenderingContext;
@@ -28,52 +54,51 @@ export class Game{
     private x: number;
     private frameNumber: number;
     private imgTex: HTMLImageElement;
-	
+
     private player: Player;
 
-
-    
-    constructor(bgctx: WebGLRenderingContext,charctx: WebGLRenderingContext,lightctx: WebGLRenderingContext){
-        if(!(bgctx.canvas.width==charctx.canvas.width && bgctx.canvas.height==charctx.canvas.height)){
+    constructor(bgctx: WebGLRenderingContext, charctx: WebGLRenderingContext, lightctx: WebGLRenderingContext) {
+        if (!(bgctx.canvas.width == charctx.canvas.width && bgctx.canvas.height == charctx.canvas.height)) {
             throw new Error('Canvas size of contexts provided are not same.');
-        }else{
-            if(!(bgctx.canvas.width==lightctx.canvas.width && bgctx.canvas.height==lightctx.canvas.height)){
+        } else {
+            if (!(bgctx.canvas.width == lightctx.canvas.width && bgctx.canvas.height == lightctx.canvas.height)) {
                 throw new Error('Canvas size of contexts provided are not same.');
             }
         }
-        
-        this.backgroundContext=bgctx;
-        this.characterContext=charctx;
-        this.lightsContext=lightctx;
 
-        this.clearColor = new Color(0, 255, 0,255);
+        this.backgroundContext = bgctx;
+        this.characterContext = charctx;
+        this.lightsContext = lightctx;
 
-        this.dimensions = new float2(bgctx.canvas.width,bgctx.canvas.height);
+        this.clearColor = new Color(0, 255, 0, 255);
 
-        this.colorRenderer = new ColorRenderer(this.backgroundContext,"vs-color","fs-color");
-        this.imageRender = new ImageRenderer(this.lightsContext,"vs-image","fs-image");
+        this.dimensions = new float2(bgctx.canvas.width, bgctx.canvas.height);
 
-        
+        this.colorRenderer = new ColorRenderer(this.backgroundContext, "vs-color", "fs-color");
+        this.imageRender = new ImageRenderer(this.lightsContext, "vs-image", "fs-image");
+
+
         this.imgTex = document.getElementById('imagee') as HTMLImageElement;
 
-	this.player = new Player(this.imageRender, new float2(10,50), new float2(25,25), new float2(25,25));
-        
+        this.player = new Player(this.imageRender, new float2(10, 50), new float2(25, 25), new float2(25, 25));
+
         this.handler = new Handler(this.player);
-		
+        this.handler.addSprite(new DebugSprite(this.imageRender, new float2(10, 50), new float2(25, 25), new float2(25, 25), this.imgTex))
+
         this.webglUtil = new WebglUtil();
 
         //debug
-        console.log(this,this.render);
-        this.x=0;
+        console.log(this, this.render);
+        this.x = 0;
         this.frameNumber = 1;
     }
-    public update(): void{
-	this.frameNumber += 1;
-	this.frameNumber %= 60;
-		
-	this.handler.update();
+    public update(): void {
+        this.frameNumber += 1;
+        this.frameNumber %= 60;
+
+        this.handler.update();
     }
-    public render(bgctx: WebGLRenderingContext=this.backgroundContext,charctx: WebGLRenderingContext=this.characterContext, lctx: WebGLRenderingContext=this.lightsContext): void{
+    public render(bgctx: WebGLRenderingContext = this.backgroundContext, charctx: WebGLRenderingContext = this.characterContext, lctx: WebGLRenderingContext = this.lightsContext): void {
         //TODO: Do clearing ONlY if required.
 
         //var normBgCol: Color = this.clearColor.normalized;

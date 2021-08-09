@@ -36,7 +36,7 @@ export class Player extends Sprite{
             "r6":new float2(1,2),
             "r7":new float2(2,2),
             "r8":new float2(3,2)
-        })
+        });
         
         this.dim = new dim2(pos.x,pos.y,size.x,size.y);
 
@@ -65,13 +65,12 @@ export class Player extends Sprite{
     }
 	
 	public update(){
-	    super.frame=(super.frame+1)%60;
-            console.log(super.frame,super.imgFrameNumber);
+	    this.frame=(this.frame+1)%60;
         		
- 	    if(super.frame%5 == 0){
-	        super.imgFrameNumber = (super.imgFrameNumber+1)%(super.totalFrames+1);
+ 	    if(this.frame%5 == 0){
+	        this.imgFrameNumber = (this.imgFrameNumber+1)%(this.totalFrames+1);
 	    }
-            if(super.imgFrameNumber == 0){super.imgFrameNumber=1;}
+            if(this.imgFrameNumber == 0){this.imgFrameNumber=1;}
 		
 	    this.handleKeys(this.inp.keys);
 	}
@@ -97,14 +96,14 @@ export class Player extends Sprite{
 	public render(){
 
             if(this.direction == Directions.East){
-                var loc: dim2 = super.spritesheet.getImage("r"+super.imgFrameNumber);
+                var loc: dim2 = this.spritesheet.getImage("r"+this.imgFrameNumber);
         
-                super.renderer.drawImage(this.img,this.renderPos.x,this.renderPos.y,this.dim.width,this.dim.height,loc.x,loc.y,loc.width,loc.height);
+                this.renderer.drawImage(this.img,this.renderPos.x,this.renderPos.y,this.dim.width,this.dim.height,loc.x,loc.y,loc.width,loc.height);
             }else{
 
-	        var loc: dim2 = super.spritesheet.getImage("l"+super.imgFrameNumber);
+	        var loc: dim2 = this.spritesheet.getImage("l"+this.imgFrameNumber);
         
-                super.renderer.drawImage(this.img,this.renderPos.x,this.renderPos.y,this.dim.width,this.dim.height,loc.x,loc.y,loc.width,loc.height);
+                this.renderer.drawImage(this.img,this.renderPos.x,this.renderPos.y,this.dim.width,this.dim.height,loc.x,loc.y,loc.width,loc.height);
             }
 	}
 }

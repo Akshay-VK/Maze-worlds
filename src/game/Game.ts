@@ -75,7 +75,7 @@ export class Game {
         this.dimensions = new float2(bgctx.canvas.width, bgctx.canvas.height);
 
         this.colorRenderer = new ColorRenderer(this.backgroundContext, "vs-color", "fs-color");
-        this.imageRender = new ImageRenderer(this.lightsContext, "vs-image", "fs-image");
+        this.imageRender = new ImageRenderer(this.characterContext, "vs-image", "fs-image");
 
 
         this.imgTex = document.getElementById('imagee') as HTMLImageElement;
@@ -88,7 +88,6 @@ export class Game {
         this.webglUtil = new WebglUtil();
 
         //debug
-        console.log(this, this.render);
         this.x = 0;
         this.frameNumber = 1;
     }
@@ -101,18 +100,9 @@ export class Game {
     public render(bgctx: WebGLRenderingContext = this.backgroundContext, charctx: WebGLRenderingContext = this.characterContext, lctx: WebGLRenderingContext = this.lightsContext): void {
         //TODO: Do clearing ONlY if required.
 
-        //var normBgCol: Color = this.clearColor.normalized;
-        // bgctx.clearColor(normBgCol.r,normBgCol.g,normBgCol.b,normBgCol.a);
-        // bgctx.clear(bgctx.COLOR_BUFFER_BIT);
-
         this.colorRenderer.clear(this.clearColor);
         //this.colorRenderer.rect(this.x,30,100,50,new Color(255,0,0,255));
 
-
-        //this.imageRender.clear(this.clearColor);
-        //this.imageRender.drawImage(this.imgTex,this.x,0);
-        //this.imageRender.drawImage(this.imgTex, this.x, 100, 100,50);
-        //this.imageRender.drawImage(this.imgTex, this.x, 200, 25,25,1, 1, 25, 25);
         this.handler.render();
     }
 }

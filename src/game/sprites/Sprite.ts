@@ -33,8 +33,6 @@ export class Sprite{
     }
     public update(){
         this.frame=(this.frame+1)%60;
-        console.log(this.frame,this.imgFrameNumber);
-        		
  	    if(this.frame%5 == 0){
 	        this.imgFrameNumber = (this.imgFrameNumber+1)%(this.totalFrames+1);
 	    }

@@ -15,17 +15,24 @@ var debug = document.querySelector('#debug');
 
 var fr = 0;
 
+var times = [];
+var fps;
+
 function loop(){
+    const now = performance.now();
+    while (times.length > 0 && times[0] <= now - 1000) {
+        times.shift();
+    }
+    times.push(now);
+    fps = times.length;
+    debug.innerHTML=`${fps}`;
+
+
     game.update();
     game.render();
 
     fr=(fr+1)%60;
-    //debug.innerHTML=`${fr}`;
 
     requestAnimationFrame(loop);
 }
 requestAnimationFrame(loop);
-
-//window.addEventListener("keydown",function(event){
-    //console.log(event);
-//});

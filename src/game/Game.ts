@@ -2,12 +2,6 @@ import {
     Color
 } from "../images/Color";
 import {
-    SpriteSheet
-} from "../images/Spritesheet";
-import {
-    dim2
-} from "../math/Dim2";
-import {
     float2
 } from "../math/float2";
 import {
@@ -20,17 +14,11 @@ import {
     WebglUtil
 } from "../util/webgl";
 import {
-    InputHandler
-} from "../util/inputHandler";
-import {
     Handler
 } from "../util/Handler";
 import {
     Player
 } from "./sprites/player/Player";
-import {
-    Sprite
-} from "./sprites/Sprite";
 import {
     DebugSprite
 } from "./sprites/DebugSprite";
@@ -82,7 +70,7 @@ export class Game {
 
         this.player = new Player(this.imageRender, new float2(10, 50), new float2(25, 25), new float2(25, 25));
 
-        this.handler = new Handler(this.player);
+        this.handler = new Handler(this.player, this.dimensions);
         this.handler.addSprite(new DebugSprite(this.imageRender, new float2(10, 50), new float2(25, 25), new float2(25, 25), this.imgTex))
 
         this.webglUtil = new WebglUtil();

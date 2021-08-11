@@ -20,4 +20,13 @@ export class float2{
 	public static magnitude(a: float2): number{
 		return Math.sqrt(a.x*a.x+a.y*a.y);
 	}
+	public static from(a: number): float2{
+		return new float2(a,a);
+	}
+	public static get ZERO(): float2{
+		return new float2(0,0);
+	}
+	public static get ONE(): float2{
+		return new float2(1, 1);
+	}
 }

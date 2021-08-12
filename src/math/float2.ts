@@ -23,6 +23,9 @@ export class float2{
 	public static from(a: number): float2{
 		return new float2(a,a);
 	}
+	public within(a: float2,b:float2): boolean{
+		return (this.x > a.x && this.x < b.x && this.y < a.y && this.y > b.y) ? false : true;
+	}
 	public static get ZERO(): float2{
 		return new float2(0,0);
 	}

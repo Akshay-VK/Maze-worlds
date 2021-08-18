@@ -26,8 +26,7 @@
         }
     </style>
 </head>
-<body bgcolor= 'black'>
-    <script src="https://webglfundamentals.org/webgl/resources/m4.js"></script>
+<body bgcolor= 'white'>
 
     <canvas id = 'bg-canvas' width="600px" height="400px"></canvas>
     <canvas id='char-canvas' width="600px" height="400px"></canvas>
@@ -80,6 +79,40 @@
 	    void main(){
 	        gl_FragColor = texture2D(u_img, v_texcoord);
 	    }
+    </script>
+    <script id='vs-lights' type='notjs'>
+        attribute vec2 a_pos;
+	attribute vec2 d_pos;
+
+        uniform vec3 lights[10];
+        uniform vec2 u_res;
+
+        varying vec4 v_color;
+
+        void main(){
+            vec2 coord=a_pos/u_res;
+            coord *= 2.0;
+            coord -= 1.0;
+
+            gl_Position=vec4(coord*vec2(1,-1),0,1);
+
+	    float epsilon = 0.0001;
+	
+            float a = 0.0;
+            
+            for(int i = 0; i < 10;i++){
+                a += lights[i].z/distance(d_pos+epsilon, vec2(lights[i].x,lights[i].y));
+            }
+
+	        v_color = vec4(0.0,0.0,0.0,1.0-a);
+        }
+    </script>
+    <script id='fs-lights' type='notjs'>
+        precision mediump float;
+        varying vec4 v_color;
+        void main(){
+            gl_FragColor=v_color;
+        }
     </script>
     
 

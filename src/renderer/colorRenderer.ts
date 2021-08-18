@@ -68,7 +68,7 @@ export class ColorRenderer{
             x+width,y,
             x,y+height,
             x+width,y+height
-        ]),this.gl.STATIC_DRAW);
+        ]),this.gl.DYNAMIC_DRAW);
 
         var colorNorm = color.normalized;
 

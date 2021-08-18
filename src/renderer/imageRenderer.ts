@@ -104,7 +104,7 @@ export class ImageRenderer{
             x+width,y,
             x,y+height,
             x+width,y+height
-        ]),this.gl.STATIC_DRAW);
+        ]),this.gl.DYNAMIC_DRAW);
         this.gl.enableVertexAttribArray(this.a_posLoc);
         this.gl.vertexAttribPointer(this.a_posLoc, 2, this.gl.FLOAT, false, 0, 0);
 
@@ -122,7 +122,7 @@ export class ImageRenderer{
                 x2,y1,
                 x1,y2,
                 x2,y2
-            ]), this.gl.STATIC_DRAW);
+            ]), this.gl.DYNAMIC_DRAW);
         }else{
             this.gl.bufferData(this.gl.ARRAY_BUFFER, new Float32Array([
                 0.0,  0.0,
@@ -131,7 +131,7 @@ export class ImageRenderer{
                 1.0,  0.0,
                 0.0,  1.0,
                 1.0,  1.0
-            ]), this.gl.STATIC_DRAW);
+            ]), this.gl.DYNAMIC_DRAW);
         }
     
         this.gl.enableVertexAttribArray(this.a_texcoordLoc);

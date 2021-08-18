@@ -22,6 +22,8 @@ import {
 import {
     DebugSprite
 } from "./sprites/DebugSprite";
+import { LightRenderer } from "../renderer/lightRenderer";
+import { Light } from "../lights/Light";
 
 export class Game {
     private backgroundContext: WebGLRenderingContext;
@@ -34,6 +36,7 @@ export class Game {
 
     private colorRenderer: ColorRenderer;
     private imageRender: ImageRenderer;
+    private lightRenderer: LightRenderer;
 
     private handler: Handler;
 
@@ -64,6 +67,7 @@ export class Game {
 
         this.colorRenderer = new ColorRenderer(this.backgroundContext, "vs-color", "fs-color");
         this.imageRender = new ImageRenderer(this.characterContext, "vs-image", "fs-image");
+        this.lightRenderer = new LightRenderer(this.lightsContext, "vs-lights", "fs-lights",float2.from(25.0));
 
 
         this.imgTex = document.getElementById('imagee') as HTMLImageElement;
@@ -72,6 +76,9 @@ export class Game {
 
         this.handler = new Handler(this.player, this.dimensions);
         this.handler.addSprite(new DebugSprite(this.imageRender, new float2(10, 50), new float2(25, 25), new float2(25, 25), this.imgTex))
+
+        this.lightRenderer.addLight(new Light(100,200,15));
+	this.lightRenderer.addLight(new Light(300,200,20));
 
         this.webglUtil = new WebglUtil();
 
@@ -84,6 +91,7 @@ export class Game {
         this.frameNumber %= 60;
 
         this.handler.update();
+        this.lightRenderer.lights[0].setPosition(this.lightRenderer.lights[0].pos.x+0.5,200);
     }
     public render(bgctx: WebGLRenderingContext = this.backgroundContext, charctx: WebGLRenderingContext = this.characterContext, lctx: WebGLRenderingContext = this.lightsContext): void {
         //TODO: Do clearing ONlY if required.
@@ -92,5 +100,6 @@ export class Game {
         //this.colorRenderer.rect(this.x,30,100,50,new Color(255,0,0,255));
 
         this.handler.render();
+        this.lightRenderer.render();
     }
 }

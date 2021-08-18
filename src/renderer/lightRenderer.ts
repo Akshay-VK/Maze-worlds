@@ -38,7 +38,7 @@ export class LightRenderer{
 
         //getting locations
         this.a_posLoc = this.gl.getAttribLocation(this.program,"a_pos");
-	this.d_posLoc = this.gl.getAttribLocation(this.program, "d_pos");
+	    this.d_posLoc = this.gl.getAttribLocation(this.program, "d_pos");
         this.u_resLoc = this.gl.getUniformLocation(this.program, "u_res");
 
         this.u_lightsLoc = new Array<WebGLUniformLocation>(10);
@@ -48,9 +48,9 @@ export class LightRenderer{
 
         this.posBuffer = this.gl.createBuffer();
         this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.posBuffer);
-
-	this.dPosBuffer = this.gl.createBuffer();
-	this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.dPosBuffer);
+    
+	    this.dPosBuffer = this.gl.createBuffer();
+	    this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.dPosBuffer);
 
         this.lights = new Array<Light>(10);
         this.lights.fill(new Light(0,0,0));
@@ -77,15 +77,18 @@ export class LightRenderer{
 
         this.gl.useProgram(this.program);
 
+        //enable position attribute
         this.gl.enableVertexAttribArray(this.a_posLoc);
         this.gl.bindBuffer(this.gl.ARRAY_BUFFER,this.posBuffer);
 
         this.gl.vertexAttribPointer(this.a_posLoc,2,this.gl.FLOAT,false,0,0);
 
+        //set canvas resolution uniform
         this.gl.uniform2f(this.u_resLoc, this.gl.canvas.width,this.gl.canvas.height);
 
         var positions: Float32Array;
         var posT = [];
+        //generating coordinates
         for(var y = 0; y < this.gl.canvas.height; y += this.unitSize.y){
             for(var x = 0; x < this.gl.canvas.width; x += this.unitSize.x){
                 posT.push(x);
@@ -105,31 +108,37 @@ export class LightRenderer{
         }
         positions = new Float32Array(posT);
 
+        //putting data
         this.gl.bufferData(this.gl.ARRAY_BUFFER, positions, this.gl.DYNAMIC_DRAW);
 
-	this.gl.enableVertexAttribArray(this.d_posLoc);
-	this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.dPosBuffer);
+        //enable light calculation positions
+        this.gl.enableVertexAttribArray(this.d_posLoc);
+        this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.dPosBuffer);
 
-	this.gl.vertexAttribPointer(this.d_posLoc,2,this.gl.FLOAT, false, 0,0);
+        this.gl.vertexAttribPointer(this.d_posLoc,2,this.gl.FLOAT, false, 0,0);
 
-	posT = [];
-	for(var y = 0; y < this.gl.canvas.height; y += this.unitSize.y){
-	    for(var x = 0; x < this.gl.canvas.width;x += this.unitSize.x){
-		for(var j = 0; j < 6; j++){
-		    posT.push(x);
-		    posT.push(y);
-		}
-	    }
-	}
-	positions = new Float32Array(posT);
+        posT = [];
+        //set positions
+        for(var y = 0; y < this.gl.canvas.height; y += this.unitSize.y){
+            for(var x = 0; x < this.gl.canvas.width;x += this.unitSize.x){
+                for(var j = 0; j < 6; j++){
+                    posT.push(x);
+                    posT.push(y);
+                }
+            }
+        }
+        positions = new Float32Array(posT);
 
-	this.gl.bufferData(this.gl.ARRAY_BUFFER, positions, this.gl.DYNAMIC_DRAW);
+        //putting data
+        this.gl.bufferData(this.gl.ARRAY_BUFFER, positions, this.gl.DYNAMIC_DRAW);
 
+        //setting each light uniform as vec3
         for(var i = 0; i < 10; i++){
             var d =this.lights[i].getAsVec3;
             this.gl.uniform3f(this.u_lightsLoc[i], d["x"], d["y"], d["z"]);
         }
 
+        //funal draw call
         this.gl.drawArrays(this.gl.TRIANGLES, 0, posT.length/2);
     }
 }

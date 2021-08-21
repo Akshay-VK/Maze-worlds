@@ -84,7 +84,7 @@
     <!-- shaders for lights -->
     <script id="vs-lights" type="notjs">
              attribute vec2 a_pos;
-      attribute vec2 d_pos;
+      	     attribute vec2 d_pos;
 
              uniform vec3 lights[10];
              uniform vec2 u_res;
@@ -98,7 +98,7 @@
 
                  gl_Position=vec4(coord*vec2(1,-1),0,1);
 
-          float epsilon = 0.0001;
+          	 float epsilon = 0.0001;
 
                  float a = 0.0;
 

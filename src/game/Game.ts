@@ -88,7 +88,7 @@ export class Game {
     public render(bgctx: WebGLRenderingContext = this.backgroundContext, charctx: WebGLRenderingContext = this.characterContext, lctx: WebGLRenderingContext = this.lightsContext): void {
         //TODO: Do clearing ONlY if required.
 
-        //this.colorRenderer.clear(this.clearColor);
+        this.colorRenderer.clear(this.clearColor);
         this.handler.render();
         this.lightRenderer.render();
     }

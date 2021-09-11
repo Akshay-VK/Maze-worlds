@@ -1,15 +1,18 @@
 import { Player } from "../game/sprites/player/Player";
 import { Sprite } from "../game/sprites/Sprite";
+import { Light } from "../lights/Light";
 import { float2 } from "../math/float2";
 
 export class Handler{
     private player: Player;
     private sprites: Sprite[];
     private screenDim: float2;
+    private lights: Light[];
     constructor(player: Player, scrnDim: float2){
         this.player = player;
         this.screenDim=scrnDim;
         this.sprites = new Array<Sprite>();
+        this.lights = new Array<Light>();
     }
     public addSprite(sprite: Sprite){
         this.sprites.push(sprite);

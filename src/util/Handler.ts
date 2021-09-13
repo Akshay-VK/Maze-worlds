@@ -8,11 +8,13 @@ export class Handler{
     private sprites: Sprite[];
     private screenDim: float2;
     private lights: Light[];
+    private lightCounter: number;
     constructor(player: Player, scrnDim: float2){
         this.player = player;
         this.screenDim=scrnDim;
         this.sprites = new Array<Sprite>();
         this.lights = new Array<Light>();
+        this.lightCounter=0;
     }
     public addSprite(sprite: Sprite){
         this.sprites.push(sprite);
@@ -20,6 +22,7 @@ export class Handler{
     public update(){
         for(var i = 0; i < this.sprites.length; i++){
             this.sprites[i].update();
+            this.lights = this.sprites[i].updateLights(this.lights);
         }
         this.player.update();
     }

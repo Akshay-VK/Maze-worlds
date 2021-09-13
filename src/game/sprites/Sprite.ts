@@ -2,6 +2,8 @@ import { float2 } from "../../math/float2";
 import { dim2 } from "../../math/Dim2";
 import { SpriteSheet } from "../../images/Spritesheet";
 import { ImageRenderer } from "../../renderer/imageRenderer";
+import { Handler } from "../../util/Handler";
+import { Light } from "../../lights/Light";
 
 
 export class Sprite{
@@ -44,5 +46,8 @@ export class Sprite{
     }
     public render(playerPos: float2, screenSize: float2){
         
+    }
+    public updateLights(lights: Light[]): Light[]{
+        return lights;
     }
 }
